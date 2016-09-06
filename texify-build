@@ -1,0 +1,15 @@
+#!/bin/bash
+
+mkdir -p tmlatex/build-dir
+cd tmlatex/build-dir
+
+make -f - <<END
+
+$1.pdf: $1.tex
+	pdflatex $1
+
+$1.tex: ../../$1.txt
+	../texify \$< > \$@
+END
+
+cp -f $1.pdf ../../$1.pdf
