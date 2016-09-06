@@ -1,0 +1,100 @@
+#!/bin/bash
+
+NADPIS=$(sed -n 's/% nadpis: \(.*\)/\1/p' $1)
+HEADER=$(sed -n 's/% header: \(.*\)/\1/p' $1)
+
+draft=""
+if [[ $@ == *draft* ]]
+then
+draft=",draft"
+fi
+
+typo="\\usepackage[nosingleletter,rivers]{impnattypo}"
+if [[ $@ == *typo* ]]
+then
+typo="\\usepackage[hyphenation,lastparline,nosingleletter,homeoarchy,rivers,draft]{impnattypo}"
+fi
+
+if [[ $@ == *a5* ]]
+then
+geometry="\\documentclass[10pt$draft]{article}\\usepackage[a5paper]{geometry}\\sloppy"
+elif [[ $@ == *kindle* ]]
+then
+geometry="\\documentclass[12pt$draft]{article}\\usepackage[papersize={108mm,144mm},margin=2mm]{geometry}\\sloppy"
+else
+geometry="\\documentclass[12pt,a4paper$draft]{article}"
+fi
+
+author="Tomáš Musil"
+date="\\ifxetex\\today\\else\\Filemodtoday{$1}\\fi"
+
+cat <<END
+$geometry
+
+\\usepackage{ifxetex,ifluatex}\\newif\\ifxetexorluatex
+\\ifxetex\\xetexorluatextrue\\else
+\\ifluatex\\xetexorluatextrue\\else
+\\xetexorluatexfalse\\fi\\fi
+
+\\ifxetexorluatex
+    \\usepackage{polyglossia}
+    \\setmainlanguage{czech}
+    \\usepackage{fontspec}
+    \\setmainfont[Mapping=tex-text]{Latin Modern Roman}
+\\else
+    \\usepackage{lmodern}
+    \\usepackage[T1]{fontenc}
+    \\usepackage[utf8]{inputenc}
+    \\usepackage[czech]{babel}
+\\fi
+
+\\usepackage{microtype}
+\\usepackage[all]{nowidow}
+
+\\ifluatex
+$typo
+\\fi
+
+$HEADER
+
+\\newcommand{\\Hair}{\\ifmmode\\mskip1mu\\else\\kern0.08em\\fi}
+
+\\usepackage[strict,style=german]{csquotes}
+\\usepackage[unicode,colorlinks,breaklinks]{hyperref}
+
+\\hypersetup{pdftitle={$NADPIS}}
+\\hypersetup{pdfauthor={Tomáš Musil}}
+
+\\usepackage{fancyhdr}
+\\pagestyle{fancy}
+\\setlength{\\headheight}{16pt} 
+\\lhead{Tomáš Musil}
+
+\\ifxetex
+\\rhead{\\today}
+\\else
+\\usepackage{filemod}
+\\rhead{\\Filemodtoday{$1}}
+\\fi
+
+\\usepackage[obeyDraft, backgroundcolor=green]{todonotes}
+%\\newcommand{\\td}[1]{\\todo[inline]{
+%\\begin{minipage}{\\textwidth-4pt}#1\\end{minipage}}}
+\\newcommand{\\td}[1]{\\todo[inline]{#1}}
+
+%%% Title Data
+\\title{\\phantomsection%
+  $NADPIS
+}
+\\author{$author}
+\\date{$date}
+
+%%% Body
+\\begin{document}
+\\maketitle
+\\thispagestyle{fancy}
+
+$(cat $1)
+
+\\end{document}
+END
