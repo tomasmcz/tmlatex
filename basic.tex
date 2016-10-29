@@ -1,0 +1,50 @@
+\usepackage{ifxetex,ifluatex}\newif\ifxetexorluatex
+\ifxetex\xetexorluatextrue\else
+\ifluatex\xetexorluatextrue\else
+\xetexorluatexfalse\fi\fi
+
+\ifluatex
+\usepackage[nosingleletter,rivers]{impnattypo}
+\fi
+
+\ifxetexorluatex
+    \usepackage{polyglossia}
+    \setmainlanguage{czech}
+    \usepackage{fontspec}
+    \ifxetex
+    \setmainfont[Mapping=tex-text]{Latin Modern Roman}
+    \else
+    \setmainfont[Ligatures=TeX]{Latin Modern Roman}
+    \fi
+\else
+    \usepackage{lmodern}
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage[czech]{babel}
+\fi
+
+\usepackage{microtype}
+\usepackage[all]{nowidow}
+
+\usepackage{epigraph}
+\usepackage{graphicx}
+\usepackage{amssymb}
+
+\newcommand{\tmBiber}[1]{
+	\usepackage[backend=biber,style=verbose-ibid]{biblatex}
+	\addbibresource{#1}
+	\DefineBibliographyStrings{czech}{ibidem={tamtéž}, references={Citovaná literatura}}
+	}
+
+\newcommand{\Hair}{\ifmmode\mskip1mu\else\kern0.08em\fi}
+
+\usepackage[obeyDraft, backgroundcolor=green]{todonotes}
+\newcommand{\td}[1]{\todo[inline]{#1}}
+\newcommand{\tda}[1]{\todo[backgroundcolor=blue!50,inline]{#1}}
+
+\newcommand{\motto}[4]{
+	\renewcommand{\textflush}{flushepinormal}
+	\setlength{\epigraphwidth}{#1}
+	\setlength{\epigraphrule}{0pt}
+	\epigraph{\textit{#2}}{-- #3, \textit{#4}}
+	}
