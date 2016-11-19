@@ -3,10 +3,6 @@
 \ifluatex\xetexorluatextrue\else
 \xetexorluatexfalse\fi\fi
 
-\ifluatex
-\usepackage[nosingleletter,rivers]{impnattypo}
-\fi
-
 \ifxetexorluatex
     \usepackage{polyglossia}
     \setmainlanguage{czech}
@@ -36,6 +32,13 @@
 %\hypersetup{pdfauthor={\ThesisAuthor}}
 %\hypersetup{pdfkeywords=\Keywords}
 %\hypersetup{allcolors=blue}
+
+\ifluatex
+%\usepackage[nosingleletter,rivers]{impnattypo}
+\usepackage{cstypo}
+\cstypoSingleLetterEnable
+\cstypoALetterEnable
+\fi
 
 
 \ifxetex
