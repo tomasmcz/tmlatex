@@ -37,6 +37,20 @@
 %\hypersetup{pdfkeywords=\Keywords}
 %\hypersetup{allcolors=blue}
 
+
+\ifxetex
+\else
+\usepackage{filemod}
+\fi
+
+\newcommand*{\tmdate}[1]{
+\ifxetex
+\today
+\else
+\Filemodtoday{#1}
+\fi
+}
+
 \newcommand{\tmBiber}[1]{
 	\usepackage[backend=biber,style=verbose-ibid]{biblatex}
 	\addbibresource{#1}
