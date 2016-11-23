@@ -73,5 +73,5 @@
 	\renewcommand{\textflush}{flushepinormal}
 	\setlength{\epigraphwidth}{#1}
 	\setlength{\epigraphrule}{0pt}
-	\epigraph{\textit{#2}}{-- #3, \textit{#4}}
+	\epigraph{\textit{#2}}{--\ifthenelse{\equal{#3}{}}{}{ #3,} \textit{#4}}
 	}
