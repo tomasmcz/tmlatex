@@ -77,3 +77,11 @@
 	\setlength{\epigraphrule}{0pt}
 	\epigraph{\textit{#2}}{--\ifthenelse{\equal{#3}{}}{}{ #3,} \textit{#4}}
 	}
+
+\newcommand{\tmFancyhdr}[2]{
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{16pt} 
+\lhead{#1}
+\rhead{#2}
+}
