@@ -1,0 +1,31 @@
+\documentclass[12pt,a4paper]{article}
+
+\ifdefined\tmAuthor
+\else
+\def\tmAuthor{Tomáš Musil}
+\fi
+
+\ifdefined\tmDate
+\else
+\def\tmDate{\today}
+\fi
+
+\author{}
+\title{\tmHeading}
+\date{}
+
+\input{../tmlatex/basic.tex}
+
+\tmFancyhdr{\tmAuthor}{\tmDate}
+
+\usepackage[unicode,colorlinks,ocgcolorlinks,breaklinks]{hyperref}
+
+\hypersetup{pdftitle={\tmHeading}}
+\hypersetup{pdfauthor={\tmAuthor}}
+\hypersetup{pdfproducer={Tomáš Musil}}
+\hypersetup{allcolors=black}
+
+\def\tmBegin{
+	\maketitle
+	\thispagestyle{fancy}
+	}
