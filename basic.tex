@@ -71,7 +71,11 @@
 \newcommand{\Hair}{\ifmmode\mskip1mu\else\kern0.08em\fi}
 		\newcommand{\spoj}{\discretionary{-}{-}{-}}
 
+\ifdefined\tmTodoOn
+\usepackage[backgroundcolor=green]{todonotes}
+\else
 \usepackage[obeyDraft, backgroundcolor=green]{todonotes}
+\fi
 \newcommand{\td}[1]{\todo[inline]{#1}}
 \newcommand{\tda}[1]{\todo[backgroundcolor=blue!50,inline]{#1}}
 
