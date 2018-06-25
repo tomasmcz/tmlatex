@@ -1,0 +1,11 @@
+\newif\ifsame
+\newcommand{\strcfstr}[2]{%
+	\samefalse
+	\begingroup
+	\def\1{#1}\def\2{#2}%
+	\ifx\1\2\endgroup \sametrue
+	\else   \endgroup
+	\fi}
+\newcommand{\macrocfstr}[2]{%
+	\expandafter\strcfstr\expandafter{#1}{#2}}
+\edef\myjob{\expandafter\scantokens\expandafter{\jobname\noexpand}}
