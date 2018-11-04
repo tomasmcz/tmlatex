@@ -73,31 +73,29 @@
         \vspace{10pt}
 
         \begin{columns}[T]
-            \column{165pt}
-            \input{logos/cuni}
-            \input{logos/ufal}
-            \ifdefined\langtech
-                \input{logos/langtech}~
-                \input{logos/opvv}
-            \fi
-            \column{125pt} \begin{minipage}[c]{120pt}
-            \tiny ~ \\ Charles Univeristy in Prague \\
-            Faculty of Mathematics and Physics \\
-            Institute of Formal and Applied Linguistics
-            \end{minipage}
+            \column{.33\paperwidth}
+	    \ifdefined\tmlogos
+		    \hbox{}\hskip .1\paperwidth
+		    \tmlogos
+	    \fi
 
-            \column{.2\paperwidth}
-            \quad\quad
-            \ifthenelse{\equal{\licence}{cc-by-nc-sa}}{\scalebox{0.8}{\input{cc/by-nc-sa}}}{}
-            \ifthenelse{\equal{\licence}{cc-by-nc-nd}}{\scalebox{0.8}{\input{cc/by-nc-nd}}}{}
-            \ifthenelse{\equal{\licence}{cc-by-nc}}{\scalebox{0.8}{\input{cc/by-nc}}}{}
-            \ifthenelse{\equal{\licence}{cc-by-nd}}{\scalebox{0.8}{\input{cc/by-nd}}}{}
-            \ifthenelse{\equal{\licence}{cc-by-sa}}{\scalebox{0.8}{\input{cc/by-sa}}}{}
-            \ifthenelse{\equal{\licence}{cc-by}}{\scalebox{0.8}{\input{cc/by}}}{}
+	    \column{.33\paperwidth}
+	    \ifdefined\tmaffil
+		    \tmaffil
+	    \fi
 
-            \centering
+            \column{.33\paperwidth}
+            \hbox{}\hfill
+            \ifthenelse{\equal{\licence}{cc-by-nc-sa}}{\scalebox{1}{\input{cc/by-nc-sa}}}{}
+            \ifthenelse{\equal{\licence}{cc-by-nc-nd}}{\scalebox{1}{\input{cc/by-nc-nd}}}{}
+            \ifthenelse{\equal{\licence}{cc-by-nc}}{\scalebox{1}{\input{cc/by-nc}}}{}
+            \ifthenelse{\equal{\licence}{cc-by-nd}}{\scalebox{1}{\input{cc/by-nd}}}{}
+            \ifthenelse{\equal{\licence}{cc-by-sa}}{\scalebox{1}{\input{cc/by-sa}}}{}
+            \ifthenelse{\equal{\licence}{cc-by}}{\scalebox{1}{\input{cc/by}}}{}
+	    \hfill\hbox{}
+
             \ifdefined\licence
-                \tiny unless otherwise stated
+		    \tiny \hskip 2.8 em unless otherwise stated
             \fi
 
         \end{columns}
