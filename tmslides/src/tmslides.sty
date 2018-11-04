@@ -107,6 +107,33 @@
     \end{frame}
 }}
 
+%%% Section and subsection pages
+\setbeamercolor{icolor}{fg=white,bg=maincolor}
+\setbeamertemplate{section page}
+{
+    \begin{centering}
+\vbox{}
+\vfill
+    \hbox{}\hfill\begin{beamercolorbox}[sep=12pt,center,wd=.6666\textwidth]{icolor}
+    \usebeamerfont{section title}\insertsection\par
+    \end{beamercolorbox}\hfill\hbox{}
+\vfill
+\vbox{}
+    \end{centering}
+}
+\setbeamertemplate{subsection page}
+{
+    \begin{centering}
+\vbox{}
+\vfill
+    \hbox{}\hfill\begin{beamercolorbox}[sep=12pt,center,wd=.6666\textwidth]{icolor}
+    \usebeamerfont{section title}\insertsubsection\par
+    \end{beamercolorbox}\hfill\hbox{}
+\vfill
+\vbox{}
+    \end{centering}
+}
+
 \newcommand\summary[2]{{
 \setbeamercolor{background canvas}{bg=lightgray}
 \begin{frame}[plain]
