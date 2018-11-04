@@ -1,0 +1,218 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{tmslides}
+  [2018/10/31 style for my slides]
+
+% adapted from UFALslides (Jindřich Libovický 2018)
+% by Tomáš Musil
+
+\RequirePackage{pstricks}
+\RequirePackage{fontspec}
+\RequirePackage{graphicx}
+
+\mode<presentation>
+{
+  \usetheme{default}
+  \usecolortheme{default}
+  \usefonttheme[onlymath]{serif}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+}
+\usepackage{pgf,tikz}
+\usepackage{calc}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{listings}
+
+\usepackage{fontspec}
+\setmainfont{FreeSans}
+
+\usepackage[sort&compress,round,comma,authoryear]{natbib}
+\usepackage{bibentry}
+\usepackage{ifthen}
+\nobibliography*
+
+%\definecolor{maincolor}{rgb}{.956862,.482352,.1254901}
+\definecolor{maincolor}{RGB}{41, 170, 225}
+\definecolor{lightgray}{rgb}{0.93, 0.93, 0.93}
+\definecolor{middlegray}{rgb}{0.87, 0.87, 0.87}
+
+\setbeamercolor{title}{fg=maincolor}
+\setbeamercolor{titlelike}{fg=maincolor}
+\setbeamercolor{block title}{fg=maincolor}
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{itemize items}[circle]
+\setbeamercolor{itemize item}{fg=black}
+\setbeamercolor{itemize subitem}{fg=black}
+\setbeamercolor{itemize subsubitem}{fg=black}
+
+\setbeamercolor{enumerate item}{fg=maincolor}
+\setbeamercolor{enumerate subitem}{fg=maincolor}
+\setbeamercolor{enumerate subsubitem}{fg=maincolor}
+\setbeamercolor{section in toc}{fg=white}
+
+\setbeamersize{text margin left=15pt,text margin right=15pt}
+
+\def\maketitle{{%
+    \begin{frame}[plain]
+        \begin{textblock*}{\paperwidth}(0pt,0pt)
+        \colorbox{maincolor}{{\bf\color{lightgray} \course} }
+        \end{textblock*}
+
+        {\Huge\bf \color{maincolor} \title}
+
+        \vspace{5pt}
+        \author
+
+        \vfill
+        \calendarbox{\date}
+
+
+        \begin{textblock*}{\paperwidth}(0pt,\dimexpr\paperheight-45pt\relax)
+        \colorbox{lightgray}{
+        \begin{minipage}{\paperwidth}
+        \vspace{10pt}
+
+        \begin{columns}[T]
+            \column{165pt}
+            \input{logos/cuni}
+            \input{logos/ufal}
+            \ifdefined\langtech
+                \input{logos/langtech}~
+                \input{logos/opvv}
+            \fi
+            \column{125pt} \begin{minipage}[c]{120pt}
+            \tiny ~ \\ Charles Univeristy in Prague \\
+            Faculty of Mathematics and Physics \\
+            Institute of Formal and Applied Linguistics
+            \end{minipage}
+
+            \column{.2\paperwidth}
+            \quad\quad
+            \ifthenelse{\equal{\licence}{cc-by-nc-sa}}{\scalebox{0.8}{\input{cc/by-nc-sa}}}{}
+            \ifthenelse{\equal{\licence}{cc-by-nc-nd}}{\scalebox{0.8}{\input{cc/by-nc-nd}}}{}
+            \ifthenelse{\equal{\licence}{cc-by-nc}}{\scalebox{0.8}{\input{cc/by-nc}}}{}
+            \ifthenelse{\equal{\licence}{cc-by-nd}}{\scalebox{0.8}{\input{cc/by-nd}}}{}
+            \ifthenelse{\equal{\licence}{cc-by-sa}}{\scalebox{0.8}{\input{cc/by-sa}}}{}
+            \ifthenelse{\equal{\licence}{cc-by}}{\scalebox{0.8}{\input{cc/by}}}{}
+
+            \centering
+            \ifdefined\licence
+                \tiny unless otherwise stated
+            \fi
+
+        \end{columns}
+
+        \vspace{20pt}
+        \end{minipage}
+       }
+        \end{textblock*}
+    \end{frame}
+}}
+
+\newcommand\summary[2]{{
+\setbeamercolor{background canvas}{bg=lightgray}
+\begin{frame}[plain]
+ \centering
+
+    \colorbox{maincolor}{{\bf\tiny\color{lightgray} \scalebox{0.9}{\title}}}
+
+    \vspace{5pt}{\color{maincolor}\bfseries\Large #1}\vspace{5pt}
+
+    {\setlength{\fboxrule}{1.5pt}
+    \fcolorbox{maincolor}{white}{
+        \begin{minipage}{0.7\paperwidth}
+            \vspace{3pt}
+            #2
+        \end{minipage}
+    }}
+
+
+    \begin{textblock*}{\paperwidth}(0pt,\dimexpr\paperheight-25pt\relax)
+        \centering
+        {\Large\bf\color{maincolor} \url{\courseurl}}
+    \end{textblock*}
+\end{frame}}}
+
+\setbeamercolor{graybox}{fg=maincolor,bg=lightgray}
+\setbeamertemplate{frametitle}{
+    \nointerlineskip
+    \begin{beamercolorbox}[sep=5pt,wd=\paperwidth]{graybox}
+        \color{maincolor}\bfseries\insertframetitle
+    \end{beamercolorbox}
+
+}
+
+\newcommand\references[1]{%
+\begin{frame}[allowframebreaks]
+    \frametitle{References}
+    \tiny
+    \bibliography{#1}
+    \bibliographystyle{plainnat}
+\end{frame}}
+
+\newcommand\outline[1]{\begin{frame}[plain]{#1} \tableofcontents \end{frame}}
+
+\newcommand\outlinecurrent[1]{%
+\begin{frame}{#1} \tableofcontents[currentsection] \end{frame}}
+
+\setbeamertemplate{footline}{%
+    \colorbox{maincolor}{{\bf\tiny\color{lightgray} \scalebox{0.9}{\title}}}
+    \ifdefined\shownavigation
+        \scalebox{0.9}{\insertsectionnavigationhorizontal{0pt}{}{\hfill}}
+    \fi
+    \hfill \insertframenumber/\inserttotalframenumber\quad
+}
+
+\definecolor{slidesColor}{rgb}{.1764,.4392,.7255}
+\definecolor{readingColor}{rgb}{.1490,.7725,.3608}
+\definecolor{hwColor}{rgb}{.9686,.6863,.2431}
+\definecolor{questionColor}{rgb}{.2353,.7490,.8784}
+
+\newcommand{\hwbox}[1]{%
+    \begin{tikzpicture}
+        \node (1) [rectangle, rounded corners=5pt, fill=hwColor, text=white, minimum height=17pt] {\small #1};
+    \end{tikzpicture}}
+\newcommand{\slidesbox}[1]{%
+    \begin{tikzpicture}
+            \node (1) [rectangle, rounded corners=5pt, fill=slidesColor, text=white, minimum height=17pt] {\small #1};
+    \end{tikzpicture}}
+\newcommand{\questionbox}[1]{%
+    \begin{tikzpicture}
+            \node (1) [rectangle, rounded corners=5pt, fill=questionColor, text=white, minimum height=17pt] {\small #1};
+    \end{tikzpicture}}
+\newcommand{\readingbox}[1]{%
+    \begin{tikzpicture}
+            \node (1) [rectangle, rounded corners=5pt, fill=readingColor, text=white, minimum height=17pt] {\small #1};
+    \end{tikzpicture}}
+\newcommand{\timebox}[1]{%
+    \begin{tikzpicture}
+        \node (1) [rectangle, rounded corners=5pt, fill=lightgray, minimum height=17pt] {\scalebox{.007}{\input{time}} \small #1};
+    \end{tikzpicture}}
+\newcommand{\calendarbox}[1]{%
+    \begin{tikzpicture}
+        \node (1) [rectangle, rounded corners=5pt, fill=lightgray, minimum height=17pt] {\scalebox{.007}{\input{calendar}} \small #1};
+    \end{tikzpicture}}
+\newcommand{\pointsbox}[1]{%
+    \begin{tikzpicture}
+        \node (1) [rectangle, rounded corners=5pt, fill=lightgray, minimum height=17pt] {\scalebox{.007}{\input{piggy-bank}} \small #1};
+    \end{tikzpicture}}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  numbersep=3pt,
+  backgroundcolor = \color{lightgray}}
+
+\renewcommand\bibsection{\section[]{\refname}}
